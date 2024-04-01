@@ -1,0 +1,1302 @@
+<html>
+<head>
+<title>FULLCODE.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+.s5 { color: #5f826b; font-style: italic;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+FULLCODE.py</font>
+</center></td></tr></table>
+<pre><span class="s0"># Adding datetime library for better date specifying operations at the louvre</span>
+<span class="s2">from </span><span class="s1">datetime </span><span class="s2">import </span><span class="s1">datetime</span>
+<span class="s0"># import ENUM library for listing the limited options available for Louvre Location including Paris and Abu Dhabi</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s2">class </span><span class="s1">LouvreLocation</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">PARIS </span><span class="s3">= </span><span class="s4">&quot;Paris, France&quot;</span>
+    <span class="s1">ABU_DHABI </span><span class="s3">= </span><span class="s4">&quot;Abu Dhabi, UAE&quot;</span>
+
+
+<span class="s0"># Creating a class for the Louvre museum</span>
+<span class="s2">class </span><span class="s1">LouvreMuseum</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the louvre musuem operations internal and external&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the musuem successfully with protected attributes</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">museumFullName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">louvreLocation</span><span class="s3">=</span><span class="s1">LouvreLocation</span><span class="s3">.</span><span class="s1">ABU_DHABI</span><span class="s3">, </span><span class="s1">openingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">openingDays</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_artwork </span><span class="s3">= []  </span><span class="s0"># A list that Illustrates the composition link between artwork and the louvre musuem</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_employees </span><span class="s3">= []  </span><span class="s0"># A list that Illustrates the composition link between employees and the louvre musuem</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_securitySystem </span><span class="s3">= []  </span><span class="s0"># A list that Illustrates the composition link between securitySystem and the louvre musuem</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_facilities </span><span class="s3">= []  </span><span class="s0"># A list that Illustrates the composition link between facilities and the louvre musuem</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibition </span><span class="s3">= []  </span><span class="s0"># A list that Illustrates the composition link between exhibition and the louvre musuem</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_tour </span><span class="s3">= []  </span><span class="s0"># A list that Illustrates the composition link between tour and the louvre musuem</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEvent </span><span class="s3">= []  </span><span class="s0"># A list that Illustrates the composition link between special event and the louvre musuem</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_gallery </span><span class="s3">= []  </span><span class="s0"># A list that Illustrates the composition link between gallery and the louvre musuem</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_visitors </span><span class="s3">= []  </span><span class="s0"># A list to store instances of Visitor and show aggreation relationship between lovure museum and visitor class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_museumFullName </span><span class="s3">= </span><span class="s1">museumFullName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_louvreLocation </span><span class="s3">= </span><span class="s1">louvreLocation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_openingHours </span><span class="s3">= </span><span class="s1">openingHours</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_openingDays </span><span class="s3">= </span><span class="s1">openingDays</span>
+
+    <span class="s0"># This method will be used to add more arkworks or remove artworks to the museum as it shows that the artwork belongs to the musuem due to composition</span>
+    <span class="s2">def </span><span class="s1">add_artwork</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">artwork</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_artwork</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">artwork</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Artwork '</span><span class="s2">{</span><span class="s1">artwork</span><span class="s3">.</span><span class="s1">_title</span><span class="s2">}</span><span class="s4">' by </span><span class="s2">{</span><span class="s1">artwork</span><span class="s3">.</span><span class="s1">_artist</span><span class="s2">} </span><span class="s4">has been added to the Louvre museum, Abu Dhabi&quot;</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">remove_artwork</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">artwork</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_artwork</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s1">artwork</span><span class="s3">)</span>
+
+    <span class="s0"># Method for Adding And Removing security Systems</span>
+    <span class="s2">def </span><span class="s1">addSecuritySystem</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">securitySystem</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_securitySystem</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">securitySystem</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">removeSecuritySystem</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">securitySystem</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_securitySystem</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s1">securitySystem</span><span class="s3">)</span>
+
+        <span class="s0"># This method will add facility or remove facility at the louvre museum</span>
+
+    <span class="s2">def </span><span class="s1">add_facility</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">facility</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_facilities</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">facility</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">remove_facility</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">facility</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_facilities</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s1">facility</span><span class="s3">)</span>
+
+        <span class="s0"># This method will add visitor or remove at the louvre museum</span>
+
+    <span class="s2">def </span><span class="s1">register_visitor</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">visitor</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_visitors</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">visitor</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">unregister_visitor</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">visitor</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_visitors</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s1">visitor</span><span class="s3">)</span>
+
+        <span class="s0"># This method will add an employee at the louvre museum</span>
+
+    <span class="s2">def </span><span class="s1">add_employee</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">employee</span><span class="s3">):</span>
+        <span class="s2">if </span><span class="s1">isinstance</span><span class="s3">(</span><span class="s1">employee</span><span class="s3">, </span><span class="s1">Employee</span><span class="s3">):</span>
+            <span class="s1">self</span><span class="s3">.</span><span class="s1">_employees</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">employee</span><span class="s3">)</span>
+        <span class="s2">else</span><span class="s3">:</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;Employee is not Valid&quot;</span><span class="s3">)</span>
+
+        <span class="s0"># This method will add and remove exhibtion at the louvre museum</span>
+
+    <span class="s2">def </span><span class="s1">addExhibition</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">exhibition</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibition</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">exhibition</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;There is a New Exhibition Opening: </span><span class="s2">{</span><span class="s1">exhibition</span><span class="s3">.</span><span class="s1">_exhibitionTitle</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">removeExhibition</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">exhibition</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibition</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s1">exhibition</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;There is a New removed Exhibition: </span><span class="s2">{</span><span class="s1">exhibition</span><span class="s3">.</span><span class="s1">_exhibitionTitle</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># This method will add and remove tour at the louvre museum</span>
+    <span class="s2">def </span><span class="s1">addTour</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">tour</span><span class="s3">, </span><span class="s1">Tour</span><span class="s3">):</span>
+        <span class="s2">if </span><span class="s1">isinstance</span><span class="s3">(</span><span class="s1">tour</span><span class="s3">, </span><span class="s1">Tour</span><span class="s3">):</span>
+            <span class="s1">self</span><span class="s3">.</span><span class="s1">_tour</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">tour</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">removeTour</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">tour</span><span class="s3">):</span>
+        <span class="s2">if </span><span class="s1">tour </span><span class="s2">in </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_tour</span><span class="s3">:</span>
+            <span class="s1">self</span><span class="s3">.</span><span class="s1">_tour</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s1">tour</span><span class="s3">)</span>
+
+    <span class="s0"># This method will add and remove special event at the louvre museum</span>
+    <span class="s2">def </span><span class="s1">addSpecialEvent</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">event</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEvent</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">event</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;There is a New Special Event Opening: </span><span class="s2">{</span><span class="s1">event</span><span class="s3">.</span><span class="s1">_nameOfEvent</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">removeSpecialEvent</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">event</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEvent</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s1">event</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;There is a New removal of Special Event Opening: </span><span class="s2">{</span><span class="s1">event</span><span class="s3">.</span><span class="s1">_nameOfEvent</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># Getters for Louvre Musuem class for reading</span>
+    <span class="s0"># getter for museumfull name attribute</span>
+    <span class="s2">def </span><span class="s1">getMuseumFullName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_museumFullName</span>
+
+    <span class="s0"># getter for louvrelocation attribute</span>
+    <span class="s2">def </span><span class="s1">getLouvreLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_louvreLocation</span>
+
+    <span class="s0"># getter for opening hours attribute</span>
+    <span class="s2">def </span><span class="s1">getOpeningHours</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_openingHours</span>
+
+    <span class="s0"># getter for opening days attribute</span>
+    <span class="s2">def </span><span class="s1">getOpeningDays</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_openingDays</span>
+
+    <span class="s0"># Setters for Louvre Museum for editing</span>
+    <span class="s2">def </span><span class="s1">setMuseumFullName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">museumFullName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_museumFullName </span><span class="s3">= </span><span class="s1">museumFullName</span>
+
+    <span class="s2">def </span><span class="s1">setLouvreLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">louvreLocation</span><span class="s3">=</span><span class="s1">LouvreLocation</span><span class="s3">.</span><span class="s1">ABU_DHABI</span><span class="s3">):</span>
+        <span class="s0"># setter for louvreLocation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_louvreLocation </span><span class="s3">= </span><span class="s1">louvreLocation</span>
+
+    <span class="s2">def </span><span class="s1">setOpeningHours</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">openingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for openingHours</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_openingHours </span><span class="s3">= </span><span class="s1">openingHours</span>
+
+    <span class="s2">def </span><span class="s1">setOpeningDays</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">openingDays</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for openingDays</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_openingDays </span><span class="s3">= </span><span class="s1">openingDays</span>
+
+    <span class="s2">def </span><span class="s1">displayInfo</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">musuemFullName</span><span class="s3">, </span><span class="s1">louvreLocation</span><span class="s3">, </span><span class="s1">openingHours</span><span class="s3">, </span><span class="s1">openingDays</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will define the details of the Louvre meseum</span>
+        <span class="s1">print</span><span class="s3">(</span>
+            <span class="s4">f&quot;Museum Name: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_museumFullName</span><span class="s2">} </span><span class="s4">Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_louvreLocation</span><span class="s2">}</span><span class="s4">, Opening Hours:</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_openingHours</span><span class="s2">} </span><span class="s4">, Opening Days: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_openingDays</span><span class="s2">}</span><span class="s4">)&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;LouvreMuseum(Museum Name: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_museumFullName</span><span class="s2">} </span><span class="s4">Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_louvreLocation</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">, Opening Hours:</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_openingHours</span><span class="s2">} </span><span class="s4">, Opening Days: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_openingDays</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s0"># Creating Enumrator for ArtLocation options</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s2">class </span><span class="s1">ArtLocation</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s0"># Enum for representing possible artwork locations within the Louvre Museum</span>
+    <span class="s1">GALLERY </span><span class="s3">= </span><span class="s4">&quot;Gallery&quot;</span>
+    <span class="s1">EXHIBITION_HALL </span><span class="s3">= </span><span class="s4">&quot;Exhibition Hall&quot;</span>
+    <span class="s1">OUTDOOR_SPACE </span><span class="s3">= </span><span class="s4">&quot;Outdoor Space&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">ArtWork</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the artworks found in the Musuem&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the artwork found in the musuem successfully with protected attributes</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">title</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">artist</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">dateOfCreation</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">historicalSignificance</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">location</span><span class="s3">=</span><span class="s1">ArtLocation</span><span class="s3">.</span><span class="s1">GALLERY</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_title </span><span class="s3">= </span><span class="s1">title</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_artist </span><span class="s3">= </span><span class="s1">artist</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_dateOfCreation </span><span class="s3">= </span><span class="s1">dateOfCreation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_historicalSignificance </span><span class="s3">= </span><span class="s1">historicalSignificance</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_location </span><span class="s3">= </span><span class="s1">location</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getTitle</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for title attribute</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_title</span>
+
+    <span class="s2">def </span><span class="s1">getArtist</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for artist attribute</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_artist</span>
+
+    <span class="s2">def </span><span class="s1">getDateOfCreation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for dateOfCreation attribute</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_dateOfCreation</span>
+
+    <span class="s2">def </span><span class="s1">getHistoricalSignificance</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for historicalSignificance attribute</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_historicalSignificance</span>
+
+    <span class="s2">def </span><span class="s1">getLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for location attribute</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_location</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setTitle</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">title</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for title</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_title </span><span class="s3">= </span><span class="s1">title</span>
+
+    <span class="s2">def </span><span class="s1">setArtist</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">artist</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for artist</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_artist </span><span class="s3">= </span><span class="s1">artist</span>
+
+    <span class="s2">def </span><span class="s1">setDateOfCreation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">dateOfCreation</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for dateOfCreation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_dateOfCreation </span><span class="s3">= </span><span class="s1">dateOfCreation</span>
+
+    <span class="s2">def </span><span class="s1">setHistoricalSignificance</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">historicalSignificance</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for historicalSignificance</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_historicalSignificance </span><span class="s3">= </span><span class="s1">historicalSignificance</span>
+
+    <span class="s2">def </span><span class="s1">setLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">location</span><span class="s3">=</span><span class="s1">ArtLocation</span><span class="s3">.</span><span class="s1">GALLERY</span><span class="s3">):</span>
+        <span class="s0"># setter for location</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_location </span><span class="s3">= </span><span class="s1">location</span>
+
+    <span class="s2">def </span><span class="s1">displayData</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will define the details of the artworks presented at the louvre</span>
+        <span class="s1">print</span><span class="s3">(</span>
+            <span class="s4">f&quot;Title of Art Piece: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_title</span><span class="s2">} </span><span class="s4">Artist: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_artist</span><span class="s2">}</span><span class="s4">, Creation Date of Artwork:</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_dateOfCreation</span><span class="s2">} </span><span class="s4">, Historical Significance: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_historicalSignificance</span><span class="s2">}</span><span class="s4">, Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_location</span><span class="s2">}</span><span class="s4">)&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;ArtWork(Title of Art Piece: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_title</span><span class="s2">} </span><span class="s4">Artist: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_artist</span><span class="s2">}</span><span class="s4">, Creation Date of Artwork:</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_dateOfCreation</span><span class="s2">} </span><span class="s4">, Historical Significance: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_historicalSignificance</span><span class="s2">}</span><span class="s4">, Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_location</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Artifacts</span><span class="s3">(</span><span class="s1">ArtWork</span><span class="s3">):</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the artworks found in the Musuem&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the artwork found in the musuem successfully for private data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">title</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">artist</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">dateOfCreation</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">historicalSignificance</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">location</span><span class="s3">=</span><span class="s1">ArtLocation</span><span class="s3">.</span><span class="s1">GALLERY</span><span class="s3">,</span>
+                 <span class="s1">yearFound</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">description</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">super</span><span class="s3">().</span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">title</span><span class="s3">, </span><span class="s1">artist</span><span class="s3">, </span><span class="s1">dateOfCreation</span><span class="s3">, </span><span class="s1">historicalSignificance</span><span class="s3">,</span>
+                         <span class="s1">location</span><span class="s3">)  </span><span class="s0"># By using the super() function it will pass the attributes of the parent class of Artworks</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__yearFound </span><span class="s3">= </span><span class="s1">yearFound</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__description </span><span class="s3">= </span><span class="s1">description</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getYearFound</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">__yearFound</span>
+
+    <span class="s2">def </span><span class="s1">getDescription</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">__description</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setYearFound</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">yearFound</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__yearFound </span><span class="s3">= </span><span class="s1">yearFound</span>
+
+    <span class="s2">def </span><span class="s1">setDescription</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">description</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__description </span><span class="s3">= </span><span class="s1">description</span>
+
+    <span class="s0"># Creating a function the will show the caring method of the artworks presented at the louvre</span>
+    <span class="s2">def </span><span class="s1">caringMethod</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">newMethod</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_caringMethod </span><span class="s3">= </span><span class="s1">newMethod  </span><span class="s0"># Change the caring method</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;New Caring method for '</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_title</span><span class="s2">}</span><span class="s4">': </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_caringMethod</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">super</span><span class="s3">().</span><span class="s1">__str__</span><span class="s3">() + </span><span class="s4">f&quot;Artifacts(Artifact Year Found: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__yearFound</span><span class="s2">} </span><span class="s4">Description of Artifact: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__description</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Employee</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the louvre musuem employees&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the musuem successfully for protected data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">employeeID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">workingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">nationality</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_employeeID </span><span class="s3">= </span><span class="s1">employeeID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_workingHours </span><span class="s3">= </span><span class="s1">workingHours</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName </span><span class="s3">= </span><span class="s1">firstName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName </span><span class="s3">= </span><span class="s1">lastName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_nationality </span><span class="s3">= </span><span class="s1">nationality</span>
+
+        <span class="s0"># Getter for employeeID</span>
+
+    <span class="s2">def </span><span class="s1">getEmployeeID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for employeeID</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_employeeID</span>
+
+    <span class="s0"># Setter for employeeID</span>
+    <span class="s2">def </span><span class="s1">setEmployeeID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">employeeID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for employeeID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_employeeID </span><span class="s3">= </span><span class="s1">employeeID</span>
+
+    <span class="s0"># Getter for workingHours</span>
+    <span class="s2">def </span><span class="s1">getWorkingHours</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for workingHours</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_workingHours</span>
+
+    <span class="s0"># Setter for workingHours</span>
+    <span class="s2">def </span><span class="s1">setWorkingHours</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">workingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for workingHours</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_workingHours </span><span class="s3">= </span><span class="s1">workingHours</span>
+
+    <span class="s0"># Getter for firstName</span>
+    <span class="s2">def </span><span class="s1">getFirstName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for firstName</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName</span>
+
+    <span class="s0"># Setter for firstName</span>
+    <span class="s2">def </span><span class="s1">setFirstName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for firstName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName </span><span class="s3">= </span><span class="s1">firstName</span>
+
+    <span class="s0"># Getter for lastName</span>
+    <span class="s2">def </span><span class="s1">getLastName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for lastName</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName</span>
+
+    <span class="s0"># Setter for lastName</span>
+    <span class="s2">def </span><span class="s1">setLastName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for lastName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName </span><span class="s3">= </span><span class="s1">lastName</span>
+
+    <span class="s0"># Getter for nationality</span>
+    <span class="s2">def </span><span class="s1">getNationality</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for nationality</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_nationality</span>
+
+    <span class="s0"># Setter for nationality</span>
+    <span class="s2">def </span><span class="s1">setNationality</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">nationality</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># setter for nationality</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_nationality </span><span class="s3">= </span><span class="s1">nationality</span>
+
+    <span class="s2">def </span><span class="s1">calculateSalary</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">hourWage</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will calculate employee salary using exception handling try and except</span>
+        <span class="s2">try</span><span class="s3">:</span>
+            <span class="s1">salary </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_workingHours</span><span class="s3">) * </span><span class="s1">hourWage</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Total Salary for </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName</span><span class="s2">} {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName</span><span class="s2">}</span><span class="s4">: </span><span class="s2">{</span><span class="s1">salary</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+        <span class="s2">except </span><span class="s1">ValueError</span><span class="s3">:</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;Your input for working hours is invalid&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;Employee(ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_employeeID</span><span class="s2">} </span><span class="s4">Working Hours: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_workingHours</span><span class="s2">}</span><span class="s4">, Name:</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName</span><span class="s2">} {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName</span><span class="s2">}</span><span class="s4">, Employee Nationality: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_nationality</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s0"># Class for enumrating the departements the managers work for</span>
+<span class="s2">class </span><span class="s1">ManagerDep</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">IT </span><span class="s3">= </span><span class="s4">&quot;IT Departement&quot;</span>
+    <span class="s1">MARKETING </span><span class="s3">= </span><span class="s4">&quot;Marketing Departement&quot;</span>
+    <span class="s1">FINANCE </span><span class="s3">= </span><span class="s4">&quot;Finanace Departement&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Manager</span><span class="s3">(</span><span class="s1">Employee</span><span class="s3">):</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the managers found in the Musuem&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the managers working in the musuem successfully for private data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">employeeID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">workingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">nationality</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">departement</span><span class="s3">=</span><span class="s1">ManagerDep</span><span class="s3">.</span><span class="s1">IT</span><span class="s3">,</span>
+                 <span class="s1">yearsOfWorking</span><span class="s3">=</span><span class="s6">0</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">super</span><span class="s3">().</span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">employeeID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">workingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                         <span class="s1">nationality</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">)  </span><span class="s0"># By using the super() function it will pass the attributes of the parent class of Artworks</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__departement </span><span class="s3">= </span><span class="s1">departement</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__yearsOfWorking </span><span class="s3">= </span><span class="s1">yearsOfWorking</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getDepartment</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for department</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">__department</span>
+
+    <span class="s2">def </span><span class="s1">getYearsOfWorking</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># getter for yearsOfWorking</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">__yearsOfWorking</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setDepartment</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">department</span><span class="s3">=</span><span class="s1">ManagerDep</span><span class="s3">.</span><span class="s1">IT</span><span class="s3">):</span>
+        <span class="s0"># setter for department</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__department </span><span class="s3">= </span><span class="s1">department</span>
+
+    <span class="s2">def </span><span class="s1">setYearsOfWorking</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">yearsOfWorking</span><span class="s3">=</span><span class="s4">''</span><span class="s3">):</span>
+        <span class="s0"># setter for yearsOfWorking</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__yearsOfWorking </span><span class="s3">= </span><span class="s1">yearsOfWorking</span>
+
+    <span class="s2">def </span><span class="s1">fireManager</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">fireManager</span><span class="s3">):</span>
+        <span class="s0"># Creating a function to fire a manager at the louvre</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__isActive </span><span class="s3">= </span><span class="s2">False</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Manager </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName</span><span class="s2">} {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName</span><span class="s2">} </span><span class="s4">has been fired.&quot;</span><span class="s3">)</span>
+
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">super</span><span class="s3">().</span><span class="s1">__str__</span><span class="s3">() + </span><span class="s4">f&quot;Manager(Manager Departement: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__departement</span><span class="s3">.</span><span class="s1">value</span><span class="s2">} </span><span class="s4">,Years Of Working </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__yearsOfWorking</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s0"># Enumrating the artkeeper expertise</span>
+<span class="s2">class </span><span class="s1">ExpertIn</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">WOOD </span><span class="s3">= </span><span class="s4">&quot;Expert in wood Material&quot;</span>
+    <span class="s1">STEEL </span><span class="s3">= </span><span class="s4">&quot;Expert in steel Material&quot;</span>
+    <span class="s1">PAPER </span><span class="s3">= </span><span class="s4">&quot;Expert in paper Material&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">ArtKeeper</span><span class="s3">(</span><span class="s1">Employee</span><span class="s3">):</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the Art Keepers found in the Musuem&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the managers working in the musuem successfully</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">employeeID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">workingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">nationality</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">expertise</span><span class="s3">=</span><span class="s1">ExpertIn</span><span class="s3">.</span><span class="s1">WOOD</span><span class="s3">,</span>
+                 <span class="s1">benefits</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class for private data</span>
+        <span class="s1">super</span><span class="s3">().</span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">employeeID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">workingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                         <span class="s1">nationality</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">)  </span><span class="s0"># By using the super() function it will pass the attributes of the parent class of Artworks</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__expertise </span><span class="s3">= </span><span class="s1">expertise</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__benefits </span><span class="s3">= </span><span class="s1">benefits</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__artKeepers </span><span class="s3">= []</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getExpertise</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for expertise</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_expertise</span>
+
+    <span class="s2">def </span><span class="s1">getBenefits</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for benefits</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_benefits</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setExpertise</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">expertise</span><span class="s3">=</span><span class="s1">ExpertIn</span><span class="s3">.</span><span class="s1">WOOD</span><span class="s3">):</span>
+        <span class="s0"># Setter for expertise</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_expertise </span><span class="s3">= </span><span class="s1">expertise</span>
+
+    <span class="s2">def </span><span class="s1">setBenefits</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">benefits</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for benefits</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_benefits </span><span class="s3">= </span><span class="s1">benefits</span>
+
+    <span class="s2">def </span><span class="s1">addArtKeeper</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">artKeeper</span><span class="s3">, </span><span class="s1">ArtKeeper</span><span class="s3">):</span>
+        <span class="s0"># Creating a function to add artkeepers at the louvre</span>
+        <span class="s2">if </span><span class="s1">isinstance</span><span class="s3">(</span><span class="s1">artKeeper</span><span class="s3">, </span><span class="s1">ArtKeeper</span><span class="s3">):</span>
+            <span class="s1">self</span><span class="s3">.</span><span class="s1">__artKeepers</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">artKeeper</span><span class="s3">)</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Added Art Keeper </span><span class="s2">{</span><span class="s1">artKeeper</span><span class="s3">.</span><span class="s1">_firstName</span><span class="s2">} {</span><span class="s1">artKeeper</span><span class="s3">.</span><span class="s1">_lastName</span><span class="s2">} </span><span class="s4">to the department&quot;</span><span class="s3">)</span>
+        <span class="s2">else</span><span class="s3">:</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;No art keeper is added&quot;</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">isArtSafe</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">materialCondition</span><span class="s3">, </span><span class="s1">ExpertIn</span><span class="s3">):</span>
+        <span class="s0"># Creating a function to ensure safety of artwork by art keepers</span>
+        <span class="s2">if </span><span class="s1">self</span><span class="s3">.</span><span class="s1">__expertise </span><span class="s3">== </span><span class="s1">ExpertIn</span><span class="s3">.</span><span class="s1">WOOD </span><span class="s2">and </span><span class="s1">materialCondition </span><span class="s3">== </span><span class="s4">&quot;not wet&quot;</span><span class="s3">:</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Art work is not safe with </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__expertise</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+        <span class="s2">else</span><span class="s3">:</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Art work is safe under </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__expertise</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">super</span><span class="s3">().</span><span class="s1">__str__</span><span class="s3">() + </span><span class="s4">f&quot;ArtKeeper(Expertise: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__expertise</span><span class="s3">.</span><span class="s1">value</span><span class="s2">} </span><span class="s4">,Benefits of Art Keepers </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__benefits</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">TourGuide</span><span class="s3">(</span><span class="s1">Employee</span><span class="s3">):</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the Tour Guide working in the Musuem&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the managers working in the musuem successfully for private data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">employeeID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">workingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">nationality</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">numOfPeople</span><span class="s3">=</span><span class="s6">0</span><span class="s3">,</span>
+                 <span class="s1">groupID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">dateOfTour</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">super</span><span class="s3">().</span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">employeeID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">workingHours</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                         <span class="s1">nationality</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">)  </span><span class="s0"># By using the super() function it will pass the attributes of the parent class of Artworks</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__numOfPeople </span><span class="s3">= </span><span class="s1">numOfPeople</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__groupID </span><span class="s3">= </span><span class="s1">groupID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__dateOfTour </span><span class="s3">= </span><span class="s1">dateOfTour</span>
+
+    <span class="s0"># Getters</span>
+    <span class="s2">def </span><span class="s1">getNumOfPeople</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for numOfPeople</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_numOfPeople</span>
+
+    <span class="s2">def </span><span class="s1">getGroupID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for groupID</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_groupID</span>
+
+    <span class="s2">def </span><span class="s1">getDateOfTour</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for dateOfTour</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_dateOfTour</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setNumOfPeople</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">numOfPeople</span><span class="s3">=</span><span class="s6">0</span><span class="s3">):</span>
+        <span class="s0"># Setter for numOfPeople</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_numOfPeople </span><span class="s3">= </span><span class="s1">numOfPeople</span>
+
+    <span class="s2">def </span><span class="s1">setGroupID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">groupID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for groupID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_groupID </span><span class="s3">= </span><span class="s1">groupID</span>
+
+    <span class="s2">def </span><span class="s1">setDateOfTour</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">dateOfTour</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for dateOfTour</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_dateOfTour </span><span class="s3">= </span><span class="s1">dateOfTour</span>
+
+    <span class="s2">def </span><span class="s1">addBackup</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">backupGuide</span><span class="s3">):</span>
+        <span class="s0"># Creating a function to add Back up tourist guide at the louvre</span>
+        <span class="s1">print</span><span class="s3">(</span>
+            <span class="s4">f&quot;Backup guide will take place of the main tour guide </span><span class="s2">{</span><span class="s1">backupGuide</span><span class="s3">.</span><span class="s1">firstName</span><span class="s2">} {</span><span class="s1">backupGuide</span><span class="s3">.</span><span class="s1">lastName</span><span class="s2">} </span><span class="s4">for date </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__dateOfTour</span><span class="s2">}</span><span class="s4">.&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">super</span><span class="s3">().</span><span class="s1">__str__</span><span class="s3">() + </span><span class="s4">f&quot;TourGuide(People need Guidance: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__numOfPeople</span><span class="s2">} </span><span class="s4">, Group ID </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__groupID</span><span class="s2">}</span><span class="s4">, Date of the Tour</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__dateOfTour</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s0"># Creating class to enumrate the options for facility</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s2">class </span><span class="s1">TypeOfFacility</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">RETAIL </span><span class="s3">= </span><span class="s4">&quot;Retail facility&quot;</span>
+    <span class="s1">DINING </span><span class="s3">= </span><span class="s4">&quot;Dining facility&quot;</span>
+    <span class="s1">ADMINSTRATION </span><span class="s3">= </span><span class="s4">&quot;Adminstration facility&quot;</span>
+    <span class="s1">VISITORSERVICES </span><span class="s3">= </span><span class="s4">&quot;Visitor services facility&quot;</span>
+
+
+<span class="s0"># Creating class to enumrate the options for facility ratings</span>
+<span class="s2">class </span><span class="s1">FacilityRating</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">GOOD </span><span class="s3">= </span><span class="s4">&quot;Good facility rating&quot;</span>
+    <span class="s1">BAD </span><span class="s3">= </span><span class="s4">&quot;Bad facility rating&quot;</span>
+    <span class="s1">AMAZING </span><span class="s3">= </span><span class="s4">&quot;Amazing facility rating&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Facilities</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the facilities found in the Musuem&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the artwork found in the musuem successfully for protected data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">facilityNumber</span><span class="s3">=</span><span class="s6">0</span><span class="s3">, </span><span class="s1">typeOfFacility</span><span class="s3">=</span><span class="s1">TypeOfFacility</span><span class="s3">.</span><span class="s1">DINING</span><span class="s3">, </span><span class="s1">facilityLocation</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">capacity</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">rating</span><span class="s3">=</span><span class="s1">FacilityRating</span><span class="s3">.</span><span class="s1">GOOD</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_facilityNumber </span><span class="s3">= </span><span class="s1">facilityNumber</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfFacility </span><span class="s3">= </span><span class="s1">typeOfFacility</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_facilityLocation </span><span class="s3">= </span><span class="s1">facilityLocation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_capacity </span><span class="s3">= </span><span class="s1">capacity</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_rating </span><span class="s3">= </span><span class="s1">rating</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getFacilityNumber</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for facilityNumber</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_facilityNumber</span>
+
+    <span class="s2">def </span><span class="s1">getTypeOfFacility</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for typeOfFacility</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfFacility</span>
+
+    <span class="s2">def </span><span class="s1">getFacilityLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for facilityLocation</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_facilityLocation</span>
+
+    <span class="s2">def </span><span class="s1">getCapacity</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for capacity</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_capacity</span>
+
+    <span class="s2">def </span><span class="s1">getRating</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for rating</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_rating</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setFacilityNumber</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">facilityNumber</span><span class="s3">):</span>
+        <span class="s0"># Setter for facilityNumber</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_facilityNumber </span><span class="s3">= </span><span class="s1">facilityNumber</span>
+
+    <span class="s2">def </span><span class="s1">setTypeOfFacility</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">typeOfFacility</span><span class="s3">):</span>
+        <span class="s0"># Setter for typeOfFacility</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfFacility </span><span class="s3">= </span><span class="s1">typeOfFacility</span>
+
+    <span class="s2">def </span><span class="s1">setFacilityLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">facilityLocation</span><span class="s3">):</span>
+        <span class="s0"># Setter for facilityLocation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_facilityLocation </span><span class="s3">= </span><span class="s1">facilityLocation</span>
+
+    <span class="s2">def </span><span class="s1">setCapacity</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">capacity</span><span class="s3">):</span>
+        <span class="s0"># Setter for capacity</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_capacity </span><span class="s3">= </span><span class="s1">capacity</span>
+
+    <span class="s2">def </span><span class="s1">setRating</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">rating</span><span class="s3">):</span>
+        <span class="s0"># Setter for rating</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_rating </span><span class="s3">= </span><span class="s1">rating</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;Facilities(Facilities Total Number: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_facilityNumber</span><span class="s2">}</span><span class="s4">, Type Of Facility: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfFacility</span><span class="s2">}</span><span class="s4">, Capacity of Facility:</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_capacity</span><span class="s2">} </span><span class="s4">, Rating of Facility: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_rating</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">SecuritySystem</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the security system found in the Musuem&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the security found in the musuem successfully for private data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">securityID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">numOfCameras</span><span class="s3">=</span><span class="s6">0</span><span class="s3">, </span><span class="s1">alarms</span><span class="s3">=</span><span class="s6">0</span><span class="s3">, </span><span class="s1">viwInDark</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">securityCode</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__securityID </span><span class="s3">= </span><span class="s1">securityID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__numOfCameras </span><span class="s3">= </span><span class="s1">numOfCameras</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__alarms </span><span class="s3">= </span><span class="s1">alarms</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__viewInDark </span><span class="s3">= </span><span class="s1">viwInDark</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">__securityCode </span><span class="s3">= </span><span class="s1">securityCode</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getSecurityID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for securityID</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_securityID</span>
+
+    <span class="s2">def </span><span class="s1">getNumOfCameras</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for numOfCameras</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_numOfCameras</span>
+
+    <span class="s2">def </span><span class="s1">getAlarms</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for alarms</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_alarms</span>
+
+    <span class="s2">def </span><span class="s1">getViewInDark</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for viewInDark</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_viewInDark</span>
+
+    <span class="s2">def </span><span class="s1">getSecurityCode</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for securityCode</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_securityCode</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setSecurityID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">securityID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for securityID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_securityID </span><span class="s3">= </span><span class="s1">securityID</span>
+
+    <span class="s2">def </span><span class="s1">setNumOfCameras</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">numOfCameras</span><span class="s3">=</span><span class="s6">0</span><span class="s3">):</span>
+        <span class="s0"># Setter for numOfCameras</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_numOfCameras </span><span class="s3">= </span><span class="s1">numOfCameras</span>
+
+    <span class="s2">def </span><span class="s1">setAlarms</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">alarms</span><span class="s3">=</span><span class="s6">0</span><span class="s3">):</span>
+        <span class="s0"># Setter for alarms</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_alarms </span><span class="s3">= </span><span class="s1">alarms</span>
+
+    <span class="s2">def </span><span class="s1">setViewInDark</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">viewInDark</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for viewInDark</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_viewInDark </span><span class="s3">= </span><span class="s1">viewInDark</span>
+
+    <span class="s2">def </span><span class="s1">setSecurityCode</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">securityCode</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for securityCode</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_securityCode </span><span class="s3">= </span><span class="s1">securityCode</span>
+
+    <span class="s2">def </span><span class="s1">detectStealing</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">detectStealing</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will detect stealing at the louvre</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;Detecting stealing sensor is activated&quot;</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">countVisitors</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">countVisitors</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will count the total visitors at the louvre</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;Detecting the count of visitors is activated&quot;</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">storeVisitorData</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">storeVisitorData</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will store data of the visitors at the louvre</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">&quot;Storage of visitor data system is applied&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;SecuritySystem(Security ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__securityID</span><span class="s2">}</span><span class="s4">, Number of Camera: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__numOfCameras</span><span class="s2">}</span><span class="s4">, Alarms:</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__alarms</span><span class="s2">} </span><span class="s4">, Camera View in the Dark: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__viewInDark</span><span class="s2">}</span><span class="s4">, Security Passcode: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">__securityCode</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Visitor</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the visitors coming to the Musuem&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the visitors found in the musuem successfully for protected data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">visitorID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">age</span><span class="s3">=</span><span class="s6">0</span><span class="s3">, </span><span class="s1">maritalStatus</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">nationalIDNumber</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_visitorID </span><span class="s3">= </span><span class="s1">visitorID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName </span><span class="s3">= </span><span class="s1">firstName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName </span><span class="s3">= </span><span class="s1">lastName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_age </span><span class="s3">= </span><span class="s1">age</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_maritalStatus </span><span class="s3">= </span><span class="s1">maritalStatus</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_nationalIDNumber </span><span class="s3">= </span><span class="s1">nationalIDNumber</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_ticket </span><span class="s3">= []  </span><span class="s0"># A list to illustrate the aggregation relationship between visitor class and ticket class</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getVisitorID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for visitorID</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_visitorID</span>
+
+    <span class="s2">def </span><span class="s1">getFirstName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for firstName</span>
+     <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName</span>
+
+    <span class="s2">def </span><span class="s1">getLastName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for lastName</span>
+     <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName</span>
+
+    <span class="s2">def </span><span class="s1">getAge</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for age</span>
+      <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_age</span>
+
+    <span class="s2">def </span><span class="s1">getMaritalStatus</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for maritalStatus</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_maritalStatus</span>
+
+    <span class="s2">def </span><span class="s1">getNationalIDNumber</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for nationalIDNumber</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_nationalIDNumber</span>
+
+    <span class="s2">def </span><span class="s1">getTickets</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for tickets</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_ticket</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setVisitorID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">visitorID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for visitorID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_visitorID </span><span class="s3">= </span><span class="s1">visitorID</span>
+
+    <span class="s2">def </span><span class="s1">setFirstName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">firstName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for firstName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName </span><span class="s3">= </span><span class="s1">firstName</span>
+
+    <span class="s2">def </span><span class="s1">setLastName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">lastName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for lastName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName </span><span class="s3">= </span><span class="s1">lastName</span>
+
+    <span class="s2">def </span><span class="s1">setAge</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">age</span><span class="s3">=</span><span class="s6">0</span><span class="s3">):</span>
+        <span class="s0"># Setter for age</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_age </span><span class="s3">= </span><span class="s1">age</span>
+
+    <span class="s2">def </span><span class="s1">setMaritalStatus</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">maritalStatus</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for maritalStatus</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_maritalStatus </span><span class="s3">= </span><span class="s1">maritalStatus</span>
+
+    <span class="s2">def </span><span class="s1">setNationalIDNumber</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">nationalIDNumber</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for nationalIDNumber</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_nationalIDNumber </span><span class="s3">= </span><span class="s1">nationalIDNumber</span>
+
+    <span class="s0"># Creating a function to add tickets for visitors</span>
+    <span class="s2">def </span><span class="s1">has_ticket</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">ticket</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">ticket </span><span class="s2">in </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_ticket</span>
+
+    <span class="s0"># Creating a function to show purchase tickets for visitors</span>
+    <span class="s2">def </span><span class="s1">purchase_ticket</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">ticket</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_ticket</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">ticket</span><span class="s3">)  </span><span class="s0"># Ensure this is the correct attribute name</span>
+        <span class="s1">final_price </span><span class="s3">= </span><span class="s1">ticket</span><span class="s3">.</span><span class="s1">calculatePriceForOne</span><span class="s3">()  </span><span class="s0"># Corrected method call</span>
+        <span class="s1">print</span><span class="s3">(</span>
+            <span class="s4">f&quot;</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName</span><span class="s2">} {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName</span><span class="s2">} </span><span class="s4">purchased a ticket for </span><span class="s2">{</span><span class="s1">ticket</span><span class="s3">.</span><span class="s1">_typeOfVisit</span><span class="s3">.</span><span class="s1">value</span><span class="s2">} </span><span class="s4">at AED</span><span class="s2">{</span><span class="s1">final_price</span><span class="s2">}</span><span class="s4">.&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># Creating a function to show receipt tickets for visitors</span>
+    <span class="s2">def </span><span class="s1">display_receipt</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s1">total </span><span class="s3">= </span><span class="s1">sum</span><span class="s3">(</span><span class="s1">ticket</span><span class="s3">.</span><span class="s1">calculatePriceForOne</span><span class="s3">() </span><span class="s2">for </span><span class="s1">ticket </span><span class="s2">in </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_ticket</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Receipt for </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName</span><span class="s2">} {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName</span><span class="s2">}</span><span class="s4">:&quot;</span><span class="s3">)</span>
+        <span class="s2">for </span><span class="s1">ticket </span><span class="s2">in </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_ticket</span><span class="s3">:</span>
+            <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;- Ticket for </span><span class="s2">{</span><span class="s1">ticket</span><span class="s3">.</span><span class="s1">_typeOfVisit</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">, AED</span><span class="s2">{</span><span class="s1">ticket</span><span class="s3">.</span><span class="s1">calculatePriceForOne</span><span class="s3">()</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Total: AED</span><span class="s2">{</span><span class="s1">total</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;Visitor(Visitor ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_visitorID</span><span class="s2">}</span><span class="s4">, Name of Visitor: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_firstName</span><span class="s2">}  {</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_lastName</span><span class="s2">} </span><span class="s4">, age: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_age</span><span class="s2">}</span><span class="s4">, Marital Status: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_maritalStatus</span><span class="s2">}</span><span class="s4">, National ID Number: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_nationalIDNumber</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s0"># import ENUM library for listing the limited options available</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+<span class="s2">class </span><span class="s1">EntryAge</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">ADULT </span><span class="s3">= (</span><span class="s6">63</span><span class="s3">, </span><span class="s4">&quot;AdultsAbove the age of 18&quot;</span><span class="s3">)</span>
+    <span class="s1">CHILD </span><span class="s3">= (</span><span class="s6">0</span><span class="s3">, </span><span class="s4">&quot;Children: Free entry to the museum&quot;</span><span class="s3">)</span>
+    <span class="s1">TEACHERANDSTUDENTS </span><span class="s3">= (</span><span class="s6">0</span><span class="s3">, </span><span class="s4">&quot;Teacher and students from an institution: Free entry to museum&quot;</span><span class="s3">)</span>
+    <span class="s1">SENIOR </span><span class="s3">= (</span><span class="s6">0</span><span class="s3">, </span><span class="s4">&quot;Above age 60 (Senior): Free entry to museum&quot;</span><span class="s3">)</span>
+    <span class="s1">GROUP </span><span class="s3">= (</span><span class="s6">0.5</span><span class="s3">, </span><span class="s4">&quot;Receive 50% discount on the original price of the ticket for groups&quot;</span><span class="s3">)</span>
+    <span class="s1">SPECIALEVENT </span><span class="s3">= (</span><span class="s2">None</span><span class="s3">, </span><span class="s4">&quot;Special Event: Individual ticket price&quot;</span><span class="s3">)</span>
+
+
+<span class="s0"># import ENUM library for listing the limited options available</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s2">class </span><span class="s1">TypeOfVisit</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">GROUP </span><span class="s3">= </span><span class="s4">&quot;Group Visit&quot;</span>
+    <span class="s1">TOUR </span><span class="s3">= </span><span class="s4">&quot;Tour Visit&quot;</span>
+    <span class="s1">INDIVIDUAL </span><span class="s3">= </span><span class="s4">&quot;Individual Visit&quot;</span>
+    <span class="s1">EVENT </span><span class="s3">= </span><span class="s4">&quot;Event visit&quot;</span>
+    <span class="s1">GALLERY </span><span class="s3">= </span><span class="s4">&quot;Gallery Visit&quot;</span>
+    <span class="s1">EXHIBITION </span><span class="s3">= </span><span class="s4">&quot;Exhibition Visit&quot;</span>
+    <span class="s1">SPECIALEVENT </span><span class="s3">= </span><span class="s4">&quot;Special Event Visit&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Ticket</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the tickets needed for the Musuem entery&quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the tickets required by visitors to enter the musuem successfully for protected data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">visitor</span><span class="s3">=</span><span class="s2">None</span><span class="s3">, </span><span class="s1">typeOfVisit</span><span class="s3">=</span><span class="s1">TypeOfVisit</span><span class="s3">.</span><span class="s1">EXHIBITION</span><span class="s3">, </span><span class="s1">priceRange</span><span class="s3">=</span><span class="s1">EntryAge</span><span class="s3">.</span><span class="s1">ADULT</span><span class="s3">, </span><span class="s1">duration</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">ticketID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">expirationDate</span><span class="s3">=</span><span class="s1">datetime</span><span class="s3">, </span><span class="s1">purchasingMethod</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">ticketValidityDate</span><span class="s3">=</span><span class="s1">datetime</span><span class="s3">, </span><span class="s1">location</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">originalPrice</span><span class="s3">=</span><span class="s6">63.0</span><span class="s3">,</span>
+                 <span class="s1">specialEventPrice</span><span class="s3">=</span><span class="s2">None</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_visitor </span><span class="s3">= </span><span class="s1">visitor  </span><span class="s0"># passing the attributes for the visitor</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit </span><span class="s3">= </span><span class="s1">typeOfVisit</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_duration </span><span class="s3">= </span><span class="s1">duration</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_ticketID </span><span class="s3">= </span><span class="s1">ticketID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_expirationDate </span><span class="s3">= </span><span class="s1">expirationDate</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_purchasingMethod </span><span class="s3">= </span><span class="s1">purchasingMethod</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_ticketValidityDate </span><span class="s3">= </span><span class="s1">ticketValidityDate</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_location </span><span class="s3">= </span><span class="s1">location</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_priceRange </span><span class="s3">= </span><span class="s1">priceRange</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_originalPrice </span><span class="s3">= </span><span class="s1">originalPrice</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEventPrice </span><span class="s3">= </span><span class="s1">specialEventPrice</span>
+
+        <span class="s0"># Getters</span>
+        <span class="s0"># Getter for visitor attribute</span>
+
+    <span class="s2">def </span><span class="s1">getVisitor</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_visitor</span>
+
+    <span class="s0"># Getter for type of visit attribute</span>
+    <span class="s2">def </span><span class="s1">getTypeOfVisit</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit</span>
+
+    <span class="s0"># Getter for duration attribute</span>
+    <span class="s2">def </span><span class="s1">getDuration</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_duration</span>
+
+    <span class="s0"># Getter for ticketID attribute</span>
+    <span class="s2">def </span><span class="s1">getTicketID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_ticketID</span>
+
+    <span class="s0"># Getter for expiration Date attribute</span>
+    <span class="s2">def </span><span class="s1">getExpirationDate</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_expirationDate</span>
+
+    <span class="s0"># Getter for purchase method attribute</span>
+    <span class="s2">def </span><span class="s1">getPurchasingMethod</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_purchasingMethod</span>
+
+    <span class="s0"># Getter for ticket validity date attribute</span>
+    <span class="s2">def </span><span class="s1">getTicketValidityDate</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_ticketValidityDate</span>
+
+    <span class="s0"># Getter for location attribute</span>
+    <span class="s2">def </span><span class="s1">getLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_location</span>
+
+    <span class="s0"># Getter for price range based on entry age attribute</span>
+    <span class="s2">def </span><span class="s1">getPriceRange</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_priceRange</span>
+
+    <span class="s0"># Getter for original priceattribute</span>
+    <span class="s2">def </span><span class="s1">getOriginalPrice</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_originalPrice</span>
+
+    <span class="s0"># Getter for special event attribute</span>
+    <span class="s2">def </span><span class="s1">getSpecialEventPrice</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEventPrice</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s0"># Setter for visitor attribute</span>
+    <span class="s2">def </span><span class="s1">setVisitor</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">visitor</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_visitor </span><span class="s3">= </span><span class="s1">visitor</span>
+
+    <span class="s0"># Setter for type of visit attribute</span>
+    <span class="s2">def </span><span class="s1">setTypeOfVisit</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">typeOfVisit</span><span class="s3">=</span><span class="s1">TypeOfVisit</span><span class="s3">.</span><span class="s1">EXHIBITION</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit </span><span class="s3">= </span><span class="s1">typeOfVisit</span>
+
+    <span class="s0"># Setter for duration attribute</span>
+    <span class="s2">def </span><span class="s1">setDuration</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">duration</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_duration </span><span class="s3">= </span><span class="s1">duration</span>
+
+    <span class="s0"># Setter for ticket id attribute</span>
+    <span class="s2">def </span><span class="s1">setTicketID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">ticketID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_ticketID </span><span class="s3">= </span><span class="s1">ticketID</span>
+
+    <span class="s0"># Setter for expiration date attribute</span>
+    <span class="s2">def </span><span class="s1">setExpirationDate</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">expirationDate</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_expirationDate </span><span class="s3">= </span><span class="s1">expirationDate</span>
+
+    <span class="s0"># Setter for purchasing method attribute</span>
+    <span class="s2">def </span><span class="s1">setPurchasingMethod</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">purchasingMethod</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_purchasingMethod </span><span class="s3">= </span><span class="s1">purchasingMethod</span>
+
+    <span class="s0"># Setter for ticket validity attribute</span>
+    <span class="s2">def </span><span class="s1">setTicketValidityDate</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">ticketValidityDate</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_ticketValidityDate </span><span class="s3">= </span><span class="s1">ticketValidityDate</span>
+
+    <span class="s0"># Setter for location attribute</span>
+    <span class="s2">def </span><span class="s1">setLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">location</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_location </span><span class="s3">= </span><span class="s1">location</span>
+
+    <span class="s0"># Setter for price range attribute</span>
+    <span class="s2">def </span><span class="s1">setPriceRange</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">priceRange</span><span class="s3">=</span><span class="s1">EntryAge</span><span class="s3">.</span><span class="s1">ADULT</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_priceRange </span><span class="s3">= </span><span class="s1">priceRange</span>
+
+    <span class="s0"># Setter for original price attribute</span>
+    <span class="s2">def </span><span class="s1">setOriginalPrice</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">originalPrice</span><span class="s3">=</span><span class="s6">63</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_originalPrice </span><span class="s3">= </span><span class="s1">originalPrice</span>
+
+    <span class="s0"># Setter for special event attribute</span>
+    <span class="s2">def </span><span class="s1">setSpecialEventPrice</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">specialEventPrice</span><span class="s3">=</span><span class="s2">None</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEventPrice </span><span class="s3">= </span><span class="s1">specialEventPrice</span>
+
+    <span class="s1">VAT </span><span class="s3">= </span><span class="s6">0.05  </span><span class="s0"># Including the vat rate in the UAE which is 5%, therefore, making the rate 0.05 as decimals</span>
+
+    <span class="s2">def </span><span class="s1">isPurchasedOnline</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># This function will check is the ticket was purchased online or in Person</span>
+        <span class="s2">return </span><span class="s4">&quot;Online&quot; </span><span class="s2">if </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_purchasingMethod</span><span class="s3">.</span><span class="s1">lower</span><span class="s3">() == </span><span class="s4">&quot;online purchase method&quot; </span><span class="s2">else </span><span class="s4">&quot;In person purchase method&quot;</span>
+
+
+    <span class="s2">def </span><span class="s1">calculatePriceForOne</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Creating the original price for adults</span>
+        <span class="s1">ticketprice </span><span class="s3">= </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_originalPrice</span>
+
+        <span class="s0"># Checking for special event pricing first</span>
+        <span class="s2">if </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit </span><span class="s3">== </span><span class="s1">TypeOfVisit</span><span class="s3">.</span><span class="s1">SPECIALEVENT </span><span class="s2">and </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEventPrice </span><span class="s2">is not None</span><span class="s3">:</span>
+            <span class="s1">ticketprice </span><span class="s3">= </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEventPrice</span>
+        <span class="s0"># Free tickets for children, teachers, students, and seniors</span>
+        <span class="s2">elif </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_visitor</span><span class="s3">.</span><span class="s1">getAge</span><span class="s3">() &lt; </span><span class="s6">18 </span><span class="s2">or </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_visitor</span><span class="s3">.</span><span class="s1">getAge</span><span class="s3">() &gt; </span><span class="s6">60 </span><span class="s2">or </span><span class="s1">\</span>
+                <span class="s4">'teacher' </span><span class="s2">in </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_visitor</span><span class="s3">.</span><span class="s1">getMaritalStatus</span><span class="s3">().</span><span class="s1">lower</span><span class="s3">() </span><span class="s2">or </span><span class="s1">\</span>
+                <span class="s4">'student' </span><span class="s2">in </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_visitor</span><span class="s3">.</span><span class="s1">getMaritalStatus</span><span class="s3">().</span><span class="s1">lower</span><span class="s3">():</span>
+            <span class="s1">ticketprice </span><span class="s3">= </span><span class="s6">0</span>
+        <span class="s0"># Adding the 50% discount for group visits</span>
+        <span class="s2">elif </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit </span><span class="s3">== </span><span class="s1">TypeOfVisit</span><span class="s3">.</span><span class="s1">GROUP</span><span class="s3">:</span>
+            <span class="s1">ticketprice </span><span class="s3">*= </span><span class="s6">0.5</span>
+        <span class="s0"># Applying the VAT rate to the original price</span>
+        <span class="s1">finalPrice </span><span class="s3">= </span><span class="s1">ticketprice </span><span class="s3">* (</span><span class="s6">1 </span><span class="s3">+ </span><span class="s1">Ticket</span><span class="s3">.</span><span class="s1">VAT</span><span class="s3">)</span>
+        <span class="s2">return </span><span class="s1">finalPrice</span>
+
+    <span class="s2">def </span><span class="s1">total_price</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">num_tickets</span><span class="s3">):</span>
+        <span class="s0"># Calculates the total price for multiple tickets</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">calculatePriceForOne</span><span class="s3">() * </span><span class="s1">num_tickets</span>
+
+    <span class="s2">def </span><span class="s1">isNationalIDValid</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># This will ensure that the visitor has a valid national ID</span>
+        <span class="s2">return </span><span class="s1">len</span><span class="s3">(</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_visitor</span><span class="s3">.</span><span class="s1">nationalIDNumber</span><span class="s3">) &gt; </span><span class="s6">0</span>
+
+    <span class="s2">def </span><span class="s1">isTour</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># This function will specify if the ticket is for a tour or not</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit </span><span class="s3">== </span><span class="s1">TypeOfVisit</span><span class="s3">.</span><span class="s1">TOUR</span>
+
+
+    <span class="s2">def </span><span class="s1">calculatePriceFor1</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># New implementation</span>
+        <span class="s1">ticketprice </span><span class="s3">= </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_originalPrice</span>
+
+        <span class="s2">if </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit </span><span class="s3">== </span><span class="s1">TypeOfVisit</span><span class="s3">.</span><span class="s1">SPECIALEVENT </span><span class="s2">and </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEventPrice </span><span class="s2">is not None</span><span class="s3">:</span>
+            <span class="s1">ticketprice </span><span class="s3">= </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEventPrice</span>
+        <span class="s2">elif </span><span class="s1">EntryAge</span><span class="s3">[</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_priceRange</span><span class="s3">.</span><span class="s1">name</span><span class="s3">].</span><span class="s1">value</span><span class="s3">[</span><span class="s6">1</span><span class="s3">] == </span><span class="s4">'Age between 18 and 60'</span><span class="s3">:</span>
+            <span class="s1">ticketprice </span><span class="s3">= </span><span class="s6">0</span>
+        <span class="s2">elif </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit </span><span class="s3">== </span><span class="s1">TypeOfVisit</span><span class="s3">.</span><span class="s1">GROUP</span><span class="s3">:</span>
+            <span class="s1">ticketprice </span><span class="s3">*= </span><span class="s6">0.5</span>
+
+        <span class="s1">finalPrice </span><span class="s3">= </span><span class="s1">ticketprice </span><span class="s3">* (</span><span class="s6">1 </span><span class="s3">+ </span><span class="s1">Ticket</span><span class="s3">.</span><span class="s1">VAT</span><span class="s3">)</span>
+        <span class="s2">return </span><span class="s1">finalPrice</span>
+
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;Ticket(Type Of Visit: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_typeOfVisit</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">, Price for type of Visitor Based on Age/type of Visit: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_priceRange</span><span class="s3">.</span><span class="s1">value</span><span class="s2">} </span><span class="s4">Duration: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_duration</span><span class="s2">}</span><span class="s4">,TicketID  </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_ticketID</span><span class="s2">} </span><span class="s4">,Expiration Date: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_expirationDate</span><span class="s2">}</span><span class="s4">,Purchasing Method: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_purchasingMethod</span><span class="s2">}</span><span class="s4">, Ticket Validity Date: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_ticketValidityDate</span><span class="s2">}</span><span class="s4">, Location</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_location</span><span class="s2">}</span><span class="s4">, originalPrice: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_originalPrice</span><span class="s2">}</span><span class="s4">, Special Event Price: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_specialEventPrice</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s0"># import ENUM library for listing the limited options available</span>
+<span class="s2">class </span><span class="s1">ExhibitionLocation</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">PERMANENT </span><span class="s3">= </span><span class="s4">&quot;permanent galleries&quot;</span>
+    <span class="s1">HALLS </span><span class="s3">= </span><span class="s4">&quot;Exhibition halls&quot;</span>
+    <span class="s1">OUTDOOR </span><span class="s3">= </span><span class="s4">&quot;Outdoor spaces&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Exhibition</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the exhibitions in the Musuem &quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the exhibitions vistied by visitors to enter the musuem successfully with protected data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">exhibitionID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">exhibitionTitle</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">exhibitionTheme</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">masterpieces</span><span class="s3">=</span><span class="s6">0</span><span class="s3">,</span>
+                 <span class="s1">exhibitionLocation</span><span class="s3">=</span><span class="s1">ExhibitionLocation</span><span class="s3">.</span><span class="s1">HALLS</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionID </span><span class="s3">= </span><span class="s1">exhibitionID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTitle </span><span class="s3">= </span><span class="s1">exhibitionTitle</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTheme </span><span class="s3">= </span><span class="s1">exhibitionTheme</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_masterpieces </span><span class="s3">= </span><span class="s1">masterpieces</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionLocation </span><span class="s3">= </span><span class="s1">exhibitionLocation</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getExhibitionID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for exhibitionID</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionID</span>
+
+    <span class="s2">def </span><span class="s1">getExhibitionTitle</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for exhibitionTitle</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTitle</span>
+
+    <span class="s2">def </span><span class="s1">getExhibitionTheme</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for exhibitionTheme</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTheme</span>
+
+    <span class="s2">def </span><span class="s1">getMasterpieces</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for masterpieces</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_masterpieces</span>
+
+    <span class="s2">def </span><span class="s1">getExhibitionLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for exhibitionLocation</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionLocation</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setExhibitionID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">exhibitionID</span><span class="s3">):</span>
+        <span class="s0"># Setter for exhibitionID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionID </span><span class="s3">= </span><span class="s1">exhibitionID</span>
+
+    <span class="s2">def </span><span class="s1">setExhibitionTitle</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">exhibitionTitle</span><span class="s3">):</span>
+        <span class="s0"># Setter for exhibitionTitle</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTitle </span><span class="s3">= </span><span class="s1">exhibitionTitle</span>
+
+    <span class="s2">def </span><span class="s1">setExhibitionTheme</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">exhibitionTheme</span><span class="s3">):</span>
+        <span class="s0"># Setter for exhibitionTheme</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTheme </span><span class="s3">= </span><span class="s1">exhibitionTheme</span>
+
+    <span class="s2">def </span><span class="s1">setMasterpieces</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">masterpieces</span><span class="s3">):</span>
+        <span class="s0"># Setter for masterpieces</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_masterpieces </span><span class="s3">= </span><span class="s1">masterpieces</span>
+
+    <span class="s2">def </span><span class="s1">setExhibitionLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">exhibitionLocation</span><span class="s3">):</span>
+        <span class="s0"># Setter for exhibitionLocation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionLocation </span><span class="s3">= </span><span class="s1">exhibitionLocation</span>
+
+    <span class="s2">def </span><span class="s1">displayExhibitionDetails</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">displayExhibitionDetails</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will allow the displaying of the exhibition details</span>
+        <span class="s1">detailsEx </span><span class="s3">= (</span>
+            <span class="s4">f&quot;Exhibition ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionID</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Title: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTitle</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Theme: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTheme</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Masterpieces: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_masterpieces</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionLocation</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">&quot;</span>
+        <span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s1">detailsEx</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;Exhibition(Exhibition ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionID</span><span class="s2">}</span><span class="s4">,Exhibition Title: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTitle</span><span class="s2">}</span><span class="s4">, Exhibition Theme: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionTheme</span><span class="s2">} </span><span class="s4">,Masterpieces: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_masterpieces</span><span class="s2">}</span><span class="s4">, Exhibition Location:  </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_exhibitionLocation</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s0"># import ENUM library for listing the limited options available</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s2">class </span><span class="s1">GalleryLocation</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">PERMANENT </span><span class="s3">= </span><span class="s4">&quot;permanent galleries&quot;</span>
+    <span class="s1">HALLS </span><span class="s3">= </span><span class="s4">&quot;Exhibition halls&quot;</span>
+    <span class="s1">OUTDOOR </span><span class="s3">= </span><span class="s4">&quot;Outdoor spaces&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Gallery</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the galleries in the Musuem &quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the exhibitions vistied by visitors to enter the musuem successfully for protected data</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">galleryID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">galleryTitle</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">featuredWork</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">galleryTheme</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">galleryDressCode</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">galleryLocation</span><span class="s3">=</span><span class="s1">GalleryLocation</span><span class="s3">.</span><span class="s1">PERMANENT</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryID </span><span class="s3">= </span><span class="s1">galleryID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTitle </span><span class="s3">= </span><span class="s1">galleryTitle</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_featuredWork </span><span class="s3">= </span><span class="s1">featuredWork</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTheme </span><span class="s3">= </span><span class="s1">galleryTheme</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryDressCode </span><span class="s3">= </span><span class="s1">galleryDressCode</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryLocation </span><span class="s3">= </span><span class="s1">galleryLocation</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getGalleryID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for galleryID</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryID</span>
+
+    <span class="s2">def </span><span class="s1">getGalleryTitle</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for galleryTitle</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTitle</span>
+
+    <span class="s2">def </span><span class="s1">getFeaturedWork</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for featuredWork</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_featuredWork</span>
+
+    <span class="s2">def </span><span class="s1">getGalleryTheme</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for galleryTheme</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTheme</span>
+
+    <span class="s2">def </span><span class="s1">getGalleryDressCode</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for galleryDressCode</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryDressCode</span>
+
+    <span class="s2">def </span><span class="s1">getGalleryLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for galleryLocation</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryLocation</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setGalleryID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">galleryID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for galleryID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryID </span><span class="s3">= </span><span class="s1">galleryID</span>
+
+    <span class="s2">def </span><span class="s1">setGalleryTitle</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">galleryTitle</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for galleryTitle</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTitle </span><span class="s3">= </span><span class="s1">galleryTitle</span>
+
+    <span class="s2">def </span><span class="s1">setFeaturedWork</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">featuredWork</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for featuredWork</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_featuredWork </span><span class="s3">= </span><span class="s1">featuredWork</span>
+
+    <span class="s2">def </span><span class="s1">setGalleryTheme</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">galleryTheme</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for galleryTheme</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTheme </span><span class="s3">= </span><span class="s1">galleryTheme</span>
+
+    <span class="s2">def </span><span class="s1">setGalleryDressCode</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">galleryDressCode</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for galleryDressCode</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryDressCode </span><span class="s3">= </span><span class="s1">galleryDressCode</span>
+
+    <span class="s2">def </span><span class="s1">setGalleryLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">galleryLocation</span><span class="s3">=</span><span class="s1">GalleryLocation</span><span class="s3">.</span><span class="s1">PERMANENT</span><span class="s3">):</span>
+        <span class="s0"># Setter for galleryLocation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryLocation </span><span class="s3">= </span><span class="s1">galleryLocation</span>
+
+    <span class="s2">def </span><span class="s1">displayGalleryInfo</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">displayGalleryInfo</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will allow the displaying of the gellery details</span>
+        <span class="s1">info </span><span class="s3">= (</span>
+            <span class="s4">f&quot;Gallery ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryID</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Title: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTitle</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Featured Work: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_featuredWork</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Theme: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTheme</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Dress Code: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryDressCode</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryLocation</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">&quot;</span>
+        <span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s1">info</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">updateTheme</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">updateTheme</span><span class="s3">, </span><span class="s1">newTheme</span><span class="s3">):</span>
+        <span class="s0"># This function is used to update the theme of the gallery</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTheme </span><span class="s3">= </span><span class="s1">newTheme</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Updated Gallery Theme: </span><span class="s2">{</span><span class="s1">newTheme</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;Gallery(Gallery ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryID</span><span class="s2">}</span><span class="s4">,Gallery Title: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTitle</span><span class="s2">}</span><span class="s4">, Featured Work: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_featuredWork</span><span class="s2">} </span><span class="s4">,Gallery Theme: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryTheme</span><span class="s2">}</span><span class="s4">, Gallery Dress code: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryDressCode</span><span class="s2">}</span><span class="s4">, Gallery Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_galleryLocation</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s0"># import ENUM library for listing the limited options available</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s2">class </span><span class="s1">EventLocation</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">PERMANENT </span><span class="s3">= </span><span class="s4">&quot;permanent galleries&quot;</span>
+    <span class="s1">HALLS </span><span class="s3">= </span><span class="s4">&quot;Exhibition halls&quot;</span>
+    <span class="s1">OUTDOOR </span><span class="s3">= </span><span class="s4">&quot;Outdoor spaces&quot;</span>
+
+
+<span class="s0"># import ENUM library for listing the limited options available</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s2">class </span><span class="s1">EventReason</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">FUND </span><span class="s3">= </span><span class="s4">&quot;Fundraising&quot;</span>
+    <span class="s1">MUSICAL </span><span class="s3">= </span><span class="s4">&quot;Musical concert&quot;</span>
+    <span class="s1">LIGHTSHOW </span><span class="s3">= </span><span class="s4">&quot;light shows&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">SpecialEvent</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the special events in the Musuem &quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the events vistied by visitors to enter the musuem successfully for protected attributes</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">eventReason</span><span class="s3">=</span><span class="s1">EventReason</span><span class="s3">.</span><span class="s1">FUND</span><span class="s3">, </span><span class="s1">eventID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">nameOfEvent</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">eventDescription</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">eventLocation</span><span class="s3">=</span><span class="s1">EventLocation</span><span class="s3">.</span><span class="s1">OUTDOOR</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventReason </span><span class="s3">= </span><span class="s1">eventReason</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventID </span><span class="s3">= </span><span class="s1">eventID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_nameOfEvent </span><span class="s3">= </span><span class="s1">nameOfEvent</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription </span><span class="s3">= </span><span class="s1">eventDescription</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventLocation </span><span class="s3">= </span><span class="s1">eventLocation</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s2">def </span><span class="s1">getEventReason</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for eventReason</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventReason</span>
+
+    <span class="s2">def </span><span class="s1">getEventID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for eventID</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventID</span>
+
+    <span class="s2">def </span><span class="s1">getNameOfEvent</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for nameOfEvent</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_nameOfEvent</span>
+
+    <span class="s2">def </span><span class="s1">getEventDescription</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for eventDescription</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription</span>
+
+    <span class="s2">def </span><span class="s1">getEventLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s0"># Getter for eventLocation</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventLocation</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s2">def </span><span class="s1">setEventReason</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">eventReason</span><span class="s3">=</span><span class="s1">EventReason</span><span class="s3">.</span><span class="s1">FUND</span><span class="s3">):</span>
+        <span class="s0"># Setter for eventReason</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventReason </span><span class="s3">= </span><span class="s1">eventReason</span>
+
+    <span class="s2">def </span><span class="s1">setEventID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">eventID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for eventID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventID </span><span class="s3">= </span><span class="s1">eventID</span>
+
+    <span class="s2">def </span><span class="s1">setNameOfEvent</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">nameOfEvent</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for nameOfEvent</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_nameOfEvent </span><span class="s3">= </span><span class="s1">nameOfEvent</span>
+
+    <span class="s2">def </span><span class="s1">setEventDescription</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">eventDescription</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">):</span>
+        <span class="s0"># Setter for eventDescription</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription </span><span class="s3">= </span><span class="s1">eventDescription</span>
+
+    <span class="s2">def </span><span class="s1">setEventLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">eventLocation</span><span class="s3">=</span><span class="s1">EventLocation</span><span class="s3">.</span><span class="s1">OUTDOOR</span><span class="s3">):</span>
+        <span class="s0"># Setter for eventLocation</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventLocation </span><span class="s3">= </span><span class="s1">eventLocation</span>
+
+    <span class="s2">def </span><span class="s1">displayEventDetails</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">displayEventDetails</span><span class="s3">):</span>
+        <span class="s0"># Creating a function the will allow the displaying of the gellery details</span>
+        <span class="s1">details </span><span class="s3">= (</span>
+            <span class="s4">f&quot;Event ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventID</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Name: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_nameOfEvent</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Reason: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventReason</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Description: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription</span><span class="s2">}</span><span class="s4">, &quot;</span>
+            <span class="s4">f&quot;Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventLocation</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">&quot;</span>
+        <span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s1">details</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">updateDescription</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">newDescription</span><span class="s3">):</span>
+        <span class="s0"># This function will update the description of of the special events</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription </span><span class="s3">= </span><span class="s1">newDescription</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Updated Event Description: </span><span class="s2">{</span><span class="s1">newDescription</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;SpecialEvent(EventReason: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventReason</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">,Event ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventID</span><span class="s2">}</span><span class="s4">, Name Of Event: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_nameOfEvent</span><span class="s2">} </span><span class="s4">,Event Description: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription</span><span class="s2">}</span><span class="s4">, Event Location: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventLocation</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+
+<span class="s0"># import ENUM library for listing the limited options available</span>
+<span class="s2">from </span><span class="s1">enum </span><span class="s2">import </span><span class="s1">Enum</span>
+
+
+<span class="s2">class </span><span class="s1">TourLocation</span><span class="s3">(</span><span class="s1">Enum</span><span class="s3">):</span>
+    <span class="s1">PERMANENT </span><span class="s3">= </span><span class="s4">&quot;permanent galleries&quot;</span>
+    <span class="s1">HALLS </span><span class="s3">= </span><span class="s4">&quot;Exhibition halls&quot;</span>
+    <span class="s1">OUTDOOR </span><span class="s3">= </span><span class="s4">&quot;Outdoor spaces&quot;</span>
+
+
+<span class="s2">class </span><span class="s1">Tour</span><span class="s3">:</span>
+    <span class="s5">&quot;&quot;&quot;Creating class for the special events in the Musuem &quot;&quot;&quot;</span>
+
+    <span class="s0"># Adding class constructor to add the attributes for the tours vistied by visitors to enter the musuem successfully by protected attributes</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">tourID</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">guideName</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">nameOfEvent</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">, </span><span class="s1">numOfVisitors</span><span class="s3">=</span><span class="s4">&quot;&quot;</span><span class="s3">,</span>
+                 <span class="s1">tourLocation</span><span class="s3">=</span><span class="s1">TourLocation</span><span class="s3">.</span><span class="s1">OUTDOOR</span><span class="s3">):  </span><span class="s0"># By adding self keyword we will initialize object of the class</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_tourID </span><span class="s3">= </span><span class="s1">tourID</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_guideName </span><span class="s3">= </span><span class="s1">guideName</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_numOfVisitors </span><span class="s3">= </span><span class="s1">numOfVisitors</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_tourLocation </span><span class="s3">= </span><span class="s1">tourLocation</span>
+
+        <span class="s0"># Getters</span>
+
+    <span class="s0"># Getters for tour ID attribute</span>
+    <span class="s2">def </span><span class="s1">getTourID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_tourID</span>
+
+    <span class="s0"># Getters for guide name attribute</span>
+    <span class="s2">def </span><span class="s1">getGuideName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_guideName</span>
+
+    <span class="s0"># Getters for name of event attribute</span>
+    <span class="s2">def </span><span class="s1">getNameOfEvent</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_nameOfEvent</span>
+
+    <span class="s0"># Getters for number of visitors attribute</span>
+    <span class="s2">def </span><span class="s1">getNumOfVisitors</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_numOfVisitors</span>
+
+    <span class="s0"># Getters for tour location attribute</span>
+    <span class="s2">def </span><span class="s1">getTourLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_tourLocation</span>
+
+    <span class="s0"># Getters for event description attribute</span>
+    <span class="s2">def </span><span class="s1">getEventDescription</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription</span>
+
+    <span class="s0"># Setters</span>
+    <span class="s0"># Setters for tour IDattribute</span>
+    <span class="s2">def </span><span class="s1">setTourID</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">tourID</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_tourID </span><span class="s3">= </span><span class="s1">tourID</span>
+
+    <span class="s0"># Setters for guide name attribute</span>
+    <span class="s2">def </span><span class="s1">setGuideName</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">guideName</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_guideName </span><span class="s3">= </span><span class="s1">guideName</span>
+
+    <span class="s0"># Setters for name of event attribute</span>
+    <span class="s2">def </span><span class="s1">setNameOfEvent</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">nameOfEvent</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_nameOfEvent </span><span class="s3">= </span><span class="s1">nameOfEvent</span>
+
+    <span class="s0"># Setters for number of visitors attribute</span>
+    <span class="s2">def </span><span class="s1">setNumOfVisitors</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">numOfVisitors</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_numOfVisitors </span><span class="s3">= </span><span class="s1">numOfVisitors</span>
+
+    <span class="s0"># Setters for tour location attribute</span>
+    <span class="s2">def </span><span class="s1">setTourLocation</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">tourLocation</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_tourLocation </span><span class="s3">= </span><span class="s1">tourLocation</span>
+
+    <span class="s0"># Setters for event description attribute</span>
+    <span class="s2">def </span><span class="s1">setEventDescription</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">eventDescription</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription </span><span class="s3">= </span><span class="s1">eventDescription</span>
+
+    <span class="s2">def </span><span class="s1">updateTourDescription</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">newDescription</span><span class="s3">):</span>
+        <span class="s0"># This function will update the description of of the tours</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">_eventDescription </span><span class="s3">= </span><span class="s1">newDescription</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Updated Tour Description: </span><span class="s2">{</span><span class="s1">newDescription</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration</span>
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s4">f&quot;Tour(Tour ID: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_tourID</span><span class="s2">}</span><span class="s4">,Guide Name: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_guideName</span><span class="s2">}</span><span class="s4">, Number Of Visitors: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_numOfVisitors</span><span class="s2">}</span><span class="s4">, Tour Location:</span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">_tourLocation</span><span class="s3">.</span><span class="s1">value</span><span class="s2">}</span><span class="s4">)&quot;</span>
+
+</pre>
+</body>
+</html>
