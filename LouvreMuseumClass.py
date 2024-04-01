@@ -1,3 +1,4 @@
+from EmployeeClass import Employee
 #import ENUM library for listing the limited options available
 from enum import Enum
 class LouvreLocation(Enum):
@@ -28,7 +29,11 @@ class LouvreMuseum:
       print(f"Artwork '{artwork._title}' by {artwork._artist} has been added to the Louvre museum, Abu Dhabi")
 
   def remove_artwork(self, artwork):
-      self._artwork.remove(artwork)
+      try:
+          self._artwork.remove(artwork)
+          print(f"Artwork '{artwork._title}' by {artwork._artist} has been removed from the museum.")
+      except ValueError:
+          print("Artwork that needs to be removed was not found in the museum collection")
 
   # Method for Adding And Removing security Systems
   def addSecuritySystem(self, securitySystem):
@@ -56,10 +61,10 @@ class LouvreMuseum:
       # This method will add an employee at the louvre museum
 
   def add_employee(self, employee):
-      if isinstance(employee):
+      if isinstance(employee, Employee):
           self._employees.append(employee)
       else:
-          print("Employee is not Valid")
+          print("The provided object is not a valid Employee instance.")
 
       # This method will add and remove exhibtion at the louvre museum
 

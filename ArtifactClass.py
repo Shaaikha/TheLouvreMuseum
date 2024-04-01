@@ -27,7 +27,7 @@ class Artifacts(ArtWork):
  # Creating a function the will show the caring method of the artworks presented at the louvre
   def caringMethod(self, newMethod):
    self.caringMethod = newMethod  #Change the caring method
-   print(f"New Caring method for '{self.title}': {self.caringMethod}")
+   print(f"New Caring method for '{self._title}': {self.caringMethod}")
 
  #For the object to have clear and easy to read parameters, we will add __str__ function ensures proper object illustration
   def __str__(self):

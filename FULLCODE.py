@@ -36,7 +36,11 @@ class LouvreMuseum:
         print(f"Artwork '{artwork._title}' by {artwork._artist} has been added to the Louvre museum, Abu Dhabi")
 
     def remove_artwork(self, artwork):
-        self._artwork.remove(artwork)
+        try:
+            self._artwork.remove(artwork)
+            print(f"Artwork '{artwork._title}' by {artwork._artist} has been removed from the museum.")
+        except ValueError:
+            print("Artwork that needs to be removed was not found in the museum collection")
 
     # Method for Adding And Removing security Systems
     def addSecuritySystem(self, securitySystem):
@@ -712,10 +716,16 @@ class Visitor:
 
     # Creating a function to show purchase tickets for visitors
     def purchase_ticket(self, ticket):
-        self._ticket.append(ticket)  # Ensure this is the correct attribute name
-        final_price = ticket.calculatePriceForOne()  # Corrected method call
-        print(
-            f"{self._firstName} {self._lastName} purchased a ticket for {ticket._typeOfVisit.value} at AED{final_price}.")
+        try:
+            if not self.has_ticket(ticket):
+                final_price = ticket.calculatePriceForOne()
+                self._ticket.append(ticket)
+                print(
+                    f"{self._firstName} {self._lastName} purchased a ticket for {ticket._typeOfVisit.value} at AED{final_price}.")
+            else:
+                print("This visitor already has this ticket.")
+        except Exception as e:  # Catch a general exception
+            print(f"An error occurred while purchasing the ticket: {e}")
 
     # Creating a function to show receipt tickets for visitors
     def display_receipt(self):
