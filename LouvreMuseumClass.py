@@ -40,24 +40,24 @@ class LouvreMuseum:
       # This method will add facility or remove facility at the louvre museum
 
   def add_facility(self, facility):
-      self._facility.append(facility)
+      self._facilities.append(facility)
 
   def remove_facility(self, facility):
-      self._facility.remove(facility)
+      self._facilities.remove(facility)
 
       # This method will add visitor or remove at the louvre museum
 
   def register_visitor(self, visitor):
-      self._visitor.append(visitor)
+      self._visitors.append(visitor)
 
   def unregister_visitor(self, visitor):
-      self._visitor.remove(visitor)
+      self._visitors.remove(visitor)
 
       # This method will add an employee at the louvre museum
 
   def add_employee(self, employee):
       if isinstance(employee):
-          self._employee.append(employee)
+          self._employees.append(employee)
       else:
           print("Employee is not Valid")
 
@@ -77,7 +77,7 @@ class LouvreMuseum:
           self._tour.append(tour)
 
   def removeTour(self, tour):
-      if tour in self._tours:
+      if tour in self._tour:
           self._tour.remove(tour)
 
   # This method will add and remove special event at the louvre museum

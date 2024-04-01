@@ -1,8 +1,9 @@
-
+from ArtWorkClass import ArtWork
+from ArtWorkClass import ArtLocation
 class Artifacts(ArtWork):
   """Creating class for the artworks found in the Musuem"""
   #Adding class constructor to add the attributes for the artwork found in the musuem successfully
-  def __init__(self, yearFound="", description=""): #By adding self keyword we will initialize object of the class
+  def __init__(self, title="", artist="", dateOfCreation="",  historicalSignificance="", location= ArtLocation.GALLERY ,yearFound="", description=""): #By adding self keyword we will initialize object of the class
    super().__init__(title, artist, dateOfCreation,  historicalSignificance, location) #By using the super() function it will pass the attributes of the parent class of Artworks
    self.__yearFound= yearFound
    self.__description= description

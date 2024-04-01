@@ -1,3 +1,4 @@
+from EmployeeClass import Employee
 class TourGuide(Employee):
   """Creating class for the Tour Guide working in the Musuem"""
   #Adding class constructor to add the attributes for the managers working in the musuem successfully
